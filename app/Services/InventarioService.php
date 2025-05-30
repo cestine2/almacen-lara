@@ -33,22 +33,6 @@ class InventarioService
     {
         $query = $this->inventarioRepository->getQuery();
 
-        $estadoFilter = true;
-
-        // if (isset($filters['status'])) {
-        //     $estadoFilter = match ($filters['status']) {
-        //         'active' => true,
-        //         'inactive' => false,
-        //         'all' => null,
-        //         default => true,
-        //     };
-        //     unset($filters['status']);
-        // }
-
-        // if ($estadoFilter !== null) {
-        //     $query->where('estado', $estadoFilter);
-        // }
-
         if (isset($filters['sucursal_id'])) {
             $query->where('sucursal_id', $filters['sucursal_id']);
         }

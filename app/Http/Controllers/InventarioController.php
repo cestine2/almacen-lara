@@ -35,7 +35,7 @@ class InventarioController extends Controller
     public function index(Request $request): ResourceCollection
     {
         $filters = $request->only([
-           'tipo', 'material_id', 'producto_id', 'sucursal_id',
+            'status', 'tipo', 'material_id', 'producto_id', 'sucursal_id',
         ]);
 
         $perPage = $request->query('per_page', 20);

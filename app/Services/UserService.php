@@ -6,6 +6,7 @@ use App\DTOs\UserDTO;
 use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role as SpatieRole;
 
 class UserService
 {
@@ -61,6 +62,14 @@ class UserService
     public function createUser(array $data): User
     {
         $user = $this->userRepository->create($data);
+
+        if(isset($data['role_id'])){
+            $role = SpatieRole::findById($data['role_id']);
+            if($role){
+                $user->syncRoles([$role->name]);
+            }
+        }
+
         return $user;
     }
 
@@ -70,6 +79,14 @@ class UserService
     public function updateUser(int $id, array $data): ?User
     {
         $user = $this->userRepository->update($id, $data);
+
+        if($user && isset($data['role_id'])){
+            $role = SpatieRole::findById($data['role_id']);
+            if($role){
+                $user->syncRoles([$role->name]);
+            }
+        }
+
         return $user;
     }
 

@@ -26,7 +26,6 @@ class InventarioResource extends JsonResource
             'stock_actual' => $this->stock_actual,
             'sucursal_id' => $this->sucursal_id,
             'usuario_id' => $this->usuario_id,
-            // 'estado' => $this->estado,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'sucursal' => SucursalResource::make($this->whenLoaded('sucursal')),

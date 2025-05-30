@@ -17,7 +17,7 @@ class UserResource extends JsonResource
             'nombre' => $this->nombre,
             'email' => $this->email,
             'sucursal' => SucursalResource::make($this->whenLoaded('sucursal')),
-            'roles' => RolResource::make($this->whenLoaded('role')),
+            'roles' => RoleResource::make($this->whenLoaded('role')),
             'permissions' => $this->when($this->relationLoaded('role') || $this->hasAnyPermission(true), function () {
                 return $this->getAllPermissions()->map(fn($permission) => [
                     'id' => $permission->id,

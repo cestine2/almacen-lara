@@ -13,6 +13,7 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\MovimientoInventarioController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 // Rutas de Autenticación que NO requieren un token JWT
 Route::post('/auth/login', [AuthController::class, 'login']);
@@ -108,6 +109,16 @@ Route::middleware('auth:api')->group(function () {
         Route::put('/{id}', [UserController::class, 'update']);
         Route::patch('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'destroy']);
+        Route::post('/{id}/restore', [UserController::class, 'restore']);
+    });
+
+    Route::prefix('roles')->middleware('permission:manage-roles')->group(function () {
+        Route::get('/', [RoleController::class, 'index']);
+        Route::post('/', [RoleController::class, 'store']);
+        Route::get('/{role}', [RoleController::class, 'show']);
+        Route::put('/{role}', [RoleController::class, 'update']);
+        Route::delete('/{role}', [RoleController::class, 'destroy']);
+        Route::post('/{role}/permissions', [RoleController::class, 'assignPermissions']);
     });
 
     Route::get('/barcode/{barcode}', [BarcodeController::class, 'generateImage'])->middleware('permission:manage-suppliers');

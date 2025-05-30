@@ -15,6 +15,7 @@ class PermissionController extends Controller
     public function __construct(/* PermissionService $permissionService */)
     {
         $this->middleware('auth:api');
+        $this->middleware('permission:manage-roles');
     }
 
     /**

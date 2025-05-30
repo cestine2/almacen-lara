@@ -11,12 +11,12 @@ class UpdateUserRequest extends FormRequest
     }
     public function rules(): array
     {
-        $userId = $this->route('id')->id;
+        $userId = $this->route('id');
         return [
             'name' => ['sometimes', 'string', 'max:255'],
             'email' => ['sometimes', 'string', 'email', 'max:255', Rule::unique('users')->ignore($userId)],
-            'sucursal_id' => ['sometimes', 'integer', 'exists:sucursales,id'],
-            'role_id' => ['sometimes', 'integer', 'exists:roles,id'],
+            'sucursal_id' => ['sometimes', 'required', 'integer', 'exists:sucursales,id'],
+            'role_id' => ['sometimes', 'integer', 'required', 'exists:roles,id'],
             'estado' => ['sometimes', 'boolean'],
         ];
     }
